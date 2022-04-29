@@ -1,0 +1,1 @@
+export { LinkProductsView } from './LinkProductsView';

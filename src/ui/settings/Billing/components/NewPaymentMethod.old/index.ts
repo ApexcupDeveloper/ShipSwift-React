@@ -1,0 +1,1 @@
+export { NewPaymentMethod } from './NewPaymentMethod';

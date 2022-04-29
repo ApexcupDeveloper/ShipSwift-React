@@ -1,0 +1,11 @@
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+shipswift-e0bc7-firebase-adminsdk-gz9d9-e78b28fe51.json

@@ -1,0 +1,1 @@
+export { ConnectStoresRouteView } from './ConnectStoresRouteView';

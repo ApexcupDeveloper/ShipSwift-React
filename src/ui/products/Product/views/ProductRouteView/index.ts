@@ -1,0 +1,1 @@
+export { ProductRouteView } from './ProductRouteView';

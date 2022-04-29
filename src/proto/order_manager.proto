@@ -1,0 +1,192 @@
+syntax = "proto3";
+// option go_package = "proto;ordermanager";
+option go_package = "github.com/ShipSwift/order-manager;order_manager";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package ordermanager;
+
+service OrderManager {
+  rpc UpdateOrder(OrderDetails) returns (UpdateOrderReply) {}
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersReply) {}
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest)
+      returns (UpdateOrderStatusReply) {}
+  rpc OrdersCount(OrdersCountRequest) returns (OrdersCountReply) {}
+  rpc GetOrder(GetOrderRequest) returns (OrderDetails) {}
+  rpc GetReport(CompanyReq) returns (ReportReply) {}
+}
+
+service Internal {
+  rpc IntUpdateOrder(OrderDetails) returns (UpdateOrderReply) {}
+  rpc IntGetOrder(GetOrderRequest) returns (OrderDetails) {}
+  rpc IntUpdateOrderStatus(UpdateOrderStatusRequest)
+      returns (UpdateOrderStatusReply) {}
+  rpc IntEnrichProduct(IntEnrichProductRequest)
+      returns (IntEnrichProductReply) {}
+}
+
+message OrderValue {
+  float total = 1;
+  float subtotal = 2;
+  float shipping = 3;
+  float tax = 4;
+  float discount = 5;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string sku = 3;
+  uint32 quantity = 4;
+  string api2cart_order_product_id = 5;
+  string shopify_order_product_id = 6;
+  uint64 shipswift_product_id = 7;
+  string shipswift_product_name = 8;
+  string shipswift_product_sku = 9;
+  google.protobuf.FloatValue price = 10;
+}
+
+message CustomerInfo {
+  string id = 1;
+  string full_name = 2;
+  string company = 3;
+  string address1 = 4;
+  string address2 = 5;
+  string city = 6;
+  string country = 7;
+  string country_code2 = 8;
+  string state_code = 9;
+  string state_name = 10;
+  string postcode = 11;
+  string phone_number = 12;
+  string email = 13;
+}
+
+message UpdateOrderReply {
+  // empty
+}
+
+message FilterCustomer {
+  string customer_name = 1;
+  string customer_email = 2;
+  string customer_postcode = 3;
+}
+
+message FilterOrder {
+  string order_number = 1;
+  string product_name_customer_free_text_search = 2;
+  string sku = 3;
+  string shipswift_product_sku = 4;
+}
+
+message FilterDate {
+  google.protobuf.Timestamp order_from = 1;
+  google.protobuf.Timestamp order_to = 2;
+}
+
+message FilterLineItems {
+  string type = 1;
+  uint32 value = 2;
+  uint32 min_value = 3;
+  uint32 max_value = 4;
+}
+
+message ListOrdersRequest {
+  string company_id = 1;
+  repeated string status_filter = 2;
+  FilterOrder order_filter = 3;
+  FilterCustomer customer_filter = 4;
+  FilterDate date_filter = 5;
+  repeated string stores_filter = 6;
+  FilterLineItems line_items = 7;
+  string pagination_cursor = 8;
+  uint32 page_size = 9;
+  bool products_enriched_only = 10;
+}
+
+message ListOrdersReply {
+  repeated OrderDetails orders = 1;
+  string next_page_cursor = 2;
+  uint32 page_size = 3;
+}
+
+message OrderDetails {
+  string store_id = 1;
+  string company_id = 2;
+  string order_number = 3;
+  CustomerInfo customer = 4;
+  CustomerInfo billing = 5;
+  string payment_method = 6;
+  repeated Product products = 7;
+  OrderValue order_value = 8;
+  string shipping_method = 9;
+  string status = 10;
+  string customer_notes = 11;
+  google.protobuf.Timestamp timestamp = 12;
+  string label_link = 13;
+  bool products_enriched = 14;
+  int64 shopify_order_id = 15;
+}
+
+message UpdateOrderStatusRequest {
+  string company_id = 1;
+  string store_id = 2;
+  string store_type = 3;
+  string order_id = 4;
+  string status = 5;
+  google.protobuf.Timestamp shipped_at = 6;
+  google.protobuf.BoolValue does_store_need_update = 7;
+}
+
+message UpdateOrderStatusReply {
+  // empty
+}
+
+message OrdersCountRequest {
+  string company_id = 1;
+  repeated string status_filter = 2;
+  FilterOrder order_filter = 3;
+  FilterCustomer customer_filter = 4;
+  FilterDate date_filter = 5;
+  repeated string stores_filter = 6;
+  FilterLineItems line_items = 7;
+  bool products_enriched_only = 8;
+}
+
+message OrdersCountReply {
+  // count represents the number of stores for a user
+  int64 count = 1;
+}
+
+message GetOrderRequest {
+  string company_id = 1;
+  string store_id = 2;
+  string order_number = 3;
+}
+
+message IntEnrichProductRequest {
+  string company_id = 1;
+  string sku = 2;
+  uint64 shipswift_product_id = 3;
+  string shipswift_product_name = 4;
+  string shipswift_product_sku = 5;
+}
+
+message IntEnrichProductReply {
+  // empty
+}
+
+// EmptyRequestBody is for the service methods which don't need a request body
+message EmptyRequestBody {}
+
+message CompanyReq { string company_id = 1; }
+
+message Report {
+  float total_sales_value = 1;
+  uint64 total_orders = 2;
+  uint64 total_orders_shipped = 3;
+}
+
+message ReportReply {
+  Report today = 1;
+  Report yesterday = 2;
+}

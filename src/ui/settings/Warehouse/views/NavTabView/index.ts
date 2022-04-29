@@ -1,0 +1,1 @@
+export { NavTabView } from './NavTabView';

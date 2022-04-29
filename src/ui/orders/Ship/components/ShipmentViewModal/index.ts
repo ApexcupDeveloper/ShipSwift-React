@@ -1,0 +1,1 @@
+export { ShipmentViewModal } from './ShipmentViewModal';

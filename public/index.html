@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="dns-prefetch" href="https://europe-west2-shipswift-e0bc7.cloudfunctions.net" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShipSwift</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+  <script type="text/javascript">
+    var script = document.createElement('script');
+    script.onload = function () {
+      upvoty.init('render', {
+        boardHash: 'd1c82d2ac8378a5ece211149f38dc60f94e4c7d6ab8c309dcc57592260979a24',
+        ssoToken: null,
+        baseUrl: 'roadmap.shipswift.com',
+      });
+    };
+    document.head.appendChild(script);
+    script.src = 'https://roadmap.shipswift.com/javascript/upvoty.embed.js';
+  </script>
+</html>

@@ -1,0 +1,122 @@
+import {
+  AmazonImage,
+  BigCommerceImage,
+  EbayImage,
+  EtsyImage,
+  MagentoImage,
+  ShopifyImage,
+  WooCommerceImage,
+  SquareSpaceImage,
+  DarkAmazonImage,
+  DarkEbayImage,
+  DarkShopifyImage,
+  DarkBigcommerceImage,
+  DarkEtsyImage,
+  DarkMagentoImage,
+  DarkWoocommerceImage,
+  DarkSquareSpaceImage,
+} from '../../../../../assets/images';
+import { AppRoutes } from '../../../../app/api';
+
+import { StoreCardProps } from '../../components/StoreCard';
+
+export const getStores = (isDark: boolean): StoreCardProps[] => [
+  {
+    name: 'Amazon',
+    image: isDark ? DarkAmazonImage : AmazonImage,
+    imageHeight: 14,
+    imageWidth: 50,
+    path: '#',
+  },
+  {
+    name: 'Ebay',
+    image: isDark ? DarkEbayImage : EbayImage,
+    imageHeight: 18,
+    imageWidth: 45,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.EBay,
+  },
+  {
+    name: 'Shopify',
+    image: isDark ? DarkShopifyImage : ShopifyImage,
+    imageHeight: 18,
+    imageWidth: 63,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.Shopify,
+  },
+  // {
+  //   image: CDiscountImage,
+  //   imageHeight: 10,
+  //   imageWidth: 64,
+  //   path: '#',
+  // },
+  {
+    name: 'BigCommerce',
+    image: isDark ? DarkBigcommerceImage : BigCommerceImage,
+    imageHeight: 16,
+    imageWidth: 70,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.BigCommerce,
+  },
+  {
+    name: 'Etsy',
+    image: isDark ? DarkEtsyImage : EtsyImage,
+    imageHeight: 14,
+    imageWidth: 30,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.Etsy,
+  },
+  // {
+  //   image: PriceMinisterImage,
+  //   imageHeight: 8,
+  //   imageWidth: 68,
+  //   path: '#',
+  // },
+  // {
+  //   image: RakutenImage,
+  //   imageHeight: 14,
+  //   imageWidth: 47,
+  //   path: '#',
+  // },
+  // {
+  //   image: VendImage,
+  //   imageHeight: 18,
+  //   imageWidth: 42,
+  //   path: '#',
+  // },
+  // {
+  //   image: NOTHSImage,
+  //   imageHeight: 20,
+  //   imageWidth: 44,
+  //   path: '#',
+  // },
+  {
+    name: 'Magento',
+    image: isDark ? DarkMagentoImage : MagentoImage,
+    imageHeight: 18,
+    imageWidth: 62,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.Magento2,
+  },
+  {
+    name: 'WooCommerce',
+    image: isDark ? DarkWoocommerceImage : WooCommerceImage,
+    imageHeight: 14,
+    imageWidth: 69,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.WooCommerce,
+  },
+  {
+    name: 'Squarespace',
+    image: isDark ? DarkSquareSpaceImage : SquareSpaceImage,
+    imageHeight: 44,
+    imageWidth: 69,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.SquareSpace,
+  },
+  // {
+  //   image: PrestoShopImage,
+  //   imageHeight: 12,
+  //   imageWidth: 72,
+  //   path: '#',
+  // },
+  // {
+  //   image: WalmartImage,
+  //   imageHeight: 18,
+  //   imageWidth: 76,
+  //   path: '#',
+  // },
+];

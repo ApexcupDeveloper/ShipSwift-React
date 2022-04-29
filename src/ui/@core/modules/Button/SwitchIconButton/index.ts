@@ -1,0 +1,1 @@
+export { SwitchIconButton } from './SwitchIconButton';

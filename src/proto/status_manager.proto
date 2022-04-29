@@ -1,0 +1,31 @@
+syntax = "proto3";
+option go_package = "github.com/ShipSwift/status-manager;status_manager";
+import "google/protobuf/wrappers.proto";
+package statusmanager;
+
+service StatusManager {
+  rpc GetStatus(StatusReq) returns (StatusReply) {}
+}
+
+// StatusReq
+message StatusReq {
+
+}
+
+// StatusReply
+message StatusReply {
+  SupportStatus support_status = 1;
+  SiteStatus site_status = 2;
+}
+
+// SupportStatusReply
+message SupportStatus {
+  string status = 1;
+  google.protobuf.UInt64Value since = 2;
+}
+
+// SiteStatusReply
+message SiteStatus {
+  string status = 1;
+}
+

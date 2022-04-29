@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Lexend;
+  src: url("../fonts/Lexend-SemiBold.ttf");
+  font-weight: 600;
+  font-style: normal;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/Roboto-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/Roboto-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+@import "../../../node_modules/antd/dist/antd.min.css";
+@import "../../../node_modules/suneditor/dist/css/suneditor.min.css";

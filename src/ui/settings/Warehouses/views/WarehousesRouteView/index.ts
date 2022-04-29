@@ -1,0 +1,1 @@
+export { WarehousesRouteView } from './WarehousesRouteView';

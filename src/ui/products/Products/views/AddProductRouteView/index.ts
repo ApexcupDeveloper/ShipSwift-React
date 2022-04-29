@@ -1,0 +1,1 @@
+export { AddProductRouteView } from './AddProductRouteView';

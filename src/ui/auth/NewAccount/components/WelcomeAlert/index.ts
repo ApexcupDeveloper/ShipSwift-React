@@ -1,0 +1,1 @@
+export { WelcomeAlert } from './WelcomeAlert';

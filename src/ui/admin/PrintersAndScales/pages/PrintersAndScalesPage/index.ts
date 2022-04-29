@@ -1,0 +1,1 @@
+export { PrintersAndScalesPage } from './PrintersAndScalesPage';

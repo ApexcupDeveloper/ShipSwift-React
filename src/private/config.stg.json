@@ -1,0 +1,41 @@
+{
+  "hostname": "https://api.shipswift.com",
+  "envoy_hostname": "https://app.shipswift.com",
+  "cache": {
+    "timeout": 300,
+    "store_timeout": 100,
+    "poll": 0
+  },
+  "auth0": {
+    "clientId": "h8Zp2LQsYINKQVHmnoXVpHpEtcuVmEw9",
+    "clientSecret": "X84ywGPkoNv9K9s6UJK7hjbGEAofYIohwDUyIfv7unn5MKx96B-USiJkMaicoUqy",
+    "domain": "auth.shipswift.com",
+    "connection": "Username-Password-Authentication",
+    "namespace": "https://shipswift.com",
+    "audience": "http://localhost:10000",
+    "audienceURL": "https://shipswift.eu.auth0.com/api/v2/"
+  },
+  "firebase": {
+    "productImages": "gs://shipswift-product-images",
+    "barcodes": "gs://shipswift-product-barcodes",
+    "invoices": "gs://shipswift-order-invoices",
+    "labels": "gs://shipswift-shipping-labels",
+    "companyLogos": "gs://shipswift-company-logos"
+  },
+  "stripeKeys": {
+    "Monthly": {
+      "Growth": "price_1JWhUfJsVhiIDBxnsXP3eJgA",
+      "Professional": "price_1KS0gBJsVhiIDBxn3QmoPkic",
+      "Enterprise": "price_1KRyosJsVhiIDBxntHk8WU6y",
+      "Seats": "price_1JWghiJsVhiIDBxn6TDFW0NL"
+    },
+    "Annual": {
+      "Growth": "price_1KRvrnJsVhiIDBxndJXrFl9j",
+      "Professional": "price_1KS0jWJsVhiIDBxnCyLxu6ip",
+      "Enterprise": "price_1KRyrIJsVhiIDBxnxbAL6QZ6",
+      "Seats": "price_1JWghiJsVhiIDBxn8dh489iE"
+    }
+  },
+  "node_url": "https://api.shipswift.com:5000",
+  "stripe_pk": "pk_test_51IsozdJsVhiIDBxnqf83MKAPMH7x6X10xhVA9GVw05kZowAwM2uQY1tRriSjgbOQNusYJZjwuixNpl7xhT9W3MnD002UhyiR9u"
+}

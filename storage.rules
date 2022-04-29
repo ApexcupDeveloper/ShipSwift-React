@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /private/{uid}/assets/{allPaths=**} {
+      allow read, write: if request.auth.uid == uid;
+    }
+    
+    match /public/{uid}/assets/{allPaths=**} {
+      allow read;
+     	allow write: if request.auth.uid == uid;
+    }
+  }
+}

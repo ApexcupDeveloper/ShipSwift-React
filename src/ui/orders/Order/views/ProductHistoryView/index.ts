@@ -1,0 +1,1 @@
+export { ProductHistoryView } from './ProductHistoryView';

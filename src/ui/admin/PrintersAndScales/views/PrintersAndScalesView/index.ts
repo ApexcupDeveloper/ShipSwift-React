@@ -1,0 +1,1 @@
+export { PrintersAndScalesView } from './PrintersAndScalesView';

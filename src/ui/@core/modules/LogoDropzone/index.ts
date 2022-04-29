@@ -1,0 +1,1 @@
+export { LogoDropzone } from './LogoDropzone';

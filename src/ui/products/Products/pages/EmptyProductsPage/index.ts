@@ -1,0 +1,1 @@
+export { EmptyProductsPage } from './EmptyProductsPage';

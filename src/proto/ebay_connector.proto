@@ -1,0 +1,28 @@
+syntax = "proto3";
+option go_package = "github.com/ShipSwift/ebay-connector-app;ebay_connector_app";
+package ebay_connector;
+
+service EbayConnector {
+  rpc AddStore(AddStoreReq) returns (AddStoreReply) {}
+}
+
+message parameters {
+  uint64 ebay_site_id = 1;
+}
+
+message AddStoreReq {
+  string name = 1;
+  string type = 2;
+  string company_id = 3;
+  string short_name = 4;
+  string icon_colour = 5;
+  string store_url = 6;
+  parameters parameters = 7;
+  string code = 8;
+  bool import_all_orders = 9;
+  bool import_all_products = 10;
+}
+
+message AddStoreReply {
+  string StoreID = 1;
+}

@@ -1,0 +1,364 @@
+syntax = "proto3";
+option go_package = "github.com/ShipSwift/product-manager;product_manager";
+package productmanager;
+
+import "google/protobuf/wrappers.proto";
+
+service ProductManager {
+    // Product
+    rpc AddProduct(AddProductRequest) returns (AddProductReply) {}
+    rpc LinkProduct(LinkProductRequest) returns (LinkProductReply) {}
+    rpc UnlinkProduct(UnlinkStoreProductRequest) returns (UnlinkStoreProductReply) {}
+    rpc EditProduct(EditProductRequest) returns (EditProductReply) {}
+    rpc GetAllProducts(GetAllProductsRequest) returns (GetAllProductsReply) {}
+    rpc ProductsCount(ProductsCountRequest) returns (ProductsCountReply) {}
+    rpc ArchivedProductsCount(ProductsCountRequest) returns (ProductsCountReply) {}
+    rpc SetProductArchived(SetProductArchivedRequest) returns (SetProductArchivedReply) {}
+    rpc GetAllArchivedProducts(GetAllProductsRequest) returns (GetAllProductsReply) {}
+    rpc UpdateStock(UpdateStockRequest) returns (UpdateStockReply) {}
+
+    // StoreProduct
+    rpc UnlinkAllStoreProductsFromStore(UnlinkAllStoreProductsFromStoreRequest) returns (UnlinkAllStoreProductsFromStoreReply) {}
+    rpc SetStoreProductArchived(SetStoreProductArchivedRequest) returns (SetStoreProductArchivedReply) {}
+    rpc GetAllStoreProducts(GetAllStoreProductsRequest) returns (GetAllStoreProductsReply) {}
+    rpc StoreProductsCount(StoreProductsCountRequest) returns (StoreProductsCountReply) {}
+    rpc ArchivedStoreProductsCount(StoreProductsCountRequest) returns (StoreProductsCountReply) {}
+    rpc GetAllArchivedStoreProducts(GetAllStoreProductsRequest) returns (GetAllStoreProductsReply) {}
+
+    // Images
+    rpc AddImage(AddImageRequest) returns (AddImageReply) {}
+    rpc DeleteImage(DeleteImageRequest) returns (DeleteImageReply) {}
+    rpc ChangeImagesOrder(ChangeImagesOrderRequest) returns (ChangeImagesOrderReply) {}
+}
+
+service Internal {
+    rpc IntUpdateStoreProduct(StoreProductDetails) returns (IntUpdateStoreProductReply) {}
+    rpc IntGetProductForStoreProduct(IntGetProductForStoreProductRequest) returns (IntGetProductForStoreProductReply) {}
+    rpc IntUpdateStockForShipped(IntUpdateStockForShippedRequest) returns (IntUpdateStockForShippedReply) {}
+    rpc IntUpdateStockForCancelled(IntUpdateStockForCancelledRequest) returns (IntUpdateStockForCancelledReply) {}
+    rpc IntUpdateAllocatedStock(IntUpdateAllocatedStockRequest) returns (IntUpdateAllocatedStockReply) {}
+}
+
+message AddProductRequest {
+    string company_id = 1;
+    string name = 2;
+    string sku = 3;
+    google.protobuf.FloatValue price = 4;
+    string url = 5;
+    string barcode = 6;
+    string origin_country = 7;
+    string description = 8;
+    float height = 9;
+    float width = 10;
+    float length = 11;
+    float weight = 12;
+    int32 stock_on_hand = 13;
+    int32 stock_allocated = 14;
+    float customs_info_value = 15;
+    string customs_info_description = 16;
+    string customs_info_tariff = 17;
+    repeated string image_urls = 18;
+    // store_product is used to link this product to a store_product polled from the store
+    string store_product_sku = 19;
+}
+
+message AddProductReply {
+    // empty
+}
+
+message LinkProductRequest {
+    string company_id = 1;
+    string sku = 2;
+    string store_product_sku = 3;
+    string store_product_url = 4;
+}
+
+message LinkProductReply {
+    // empty
+}
+
+message UnlinkStoreProductRequest {
+    string company_id = 1;
+    string store_product_sku = 2;
+    string store_product_url = 3;
+}
+
+message UnlinkStoreProductReply {
+    // empty
+}
+
+message UnlinkAllStoreProductsFromStoreRequest {
+    string company_id = 1;
+    string sku = 2;
+}
+
+message UnlinkAllStoreProductsFromStoreReply {
+    // empty
+}
+
+message EditProductRequest {
+    string company_id = 1;
+    string name = 2;
+    // sku here is read-only, used to select what product to edit
+    string sku = 3;
+    google.protobuf.FloatValue price = 4;
+    string url = 5;
+    string barcode = 6;
+    string origin_country = 7;
+    string description = 8;
+    float height = 9;
+    float width = 10;
+    float length = 11;
+    float weight = 12;
+    float customs_info_value = 15;
+    string customs_info_description = 16;
+    string customs_info_tariff = 17;
+}
+
+message EditProductReply {
+    // empty
+}
+
+message SetStoreProductArchivedRequest {
+    string company_id = 1;
+    string store_product_sku = 2;
+    bool archived = 3;
+}
+
+message SetStoreProductArchivedReply {
+    // empty
+}
+
+message SetProductArchivedRequest {
+    string company_id = 1;
+    string product_sku = 2;
+    bool archived = 3;
+}
+
+message SetProductArchivedReply {
+    // empty
+}
+
+message ResetStoreProductLastPolledRequest {
+    string company_id = 1;
+    string store_product_sku = 2;
+}
+
+message ResetStoreProductLastPolledReply {
+    // empty
+}
+
+message StoreFilter {
+    repeated string store_ids = 1;
+    string name_sku_free_text_search = 2;
+}
+
+message GetAllProductsRequest {
+    string company_id = 1;
+    StoreFilter store_filter = 2;
+    uint32 min_quantity = 3;
+    uint32 max_quantity = 4;
+    bool include_archived = 5;
+    string pagination_cursor = 6;
+    uint32 page_size = 7;
+}
+
+message ImageInfo {
+    uint64 id = 1;
+    string url = 2;
+}
+
+message StoreProductInfo {
+    string store_id = 1;
+    string name = 2;
+    google.protobuf.FloatValue price = 3;
+    string url = 4;
+    string sku = 5;
+    uint64 id = 6;
+    bool archived = 7;
+    bool is_linked = 8;
+    uint64 product_id = 9;
+    repeated string images = 10;
+    string product_sku = 11;
+    google.protobuf.FloatValue height = 12;
+    google.protobuf.FloatValue width = 13;
+    google.protobuf.FloatValue length = 14;
+    google.protobuf.FloatValue cost_price = 15;
+    float weight = 16;
+    uint32 quantity = 17;
+    string weight_unit = 18;
+    string dimension_unit = 19;
+}
+
+message ProductInfo {
+    uint64 id = 1;
+    string name = 2;
+    string sku = 3;
+    google.protobuf.FloatValue price = 4;
+    string url = 5;
+    string barcode = 6;
+    string origin_country = 7;
+    string description = 8;
+    float height = 9;
+    float width = 10;
+    float length = 11;
+    float weight = 12;
+    int32 stock_on_hand = 13;
+    int32 stock_allocated = 14;
+    float customs_info_value = 15;
+    string customs_info_description = 16;
+    string customs_info_tariff = 17;
+    repeated ImageInfo images = 18;
+    repeated StoreProductInfo store_products = 19;
+}
+
+message GetAllProductsReply {
+    repeated ProductInfo products = 1;
+    string next_page_cursor = 2;
+    uint32 page_size = 3;
+}
+
+message GetAllStoreProductsRequest {
+    string company_id = 1;
+    StoreFilter store_filter = 2;
+    bool include_archived = 3;
+    bool linked_only = 4;
+    bool unlinked_only = 5;
+    string pagination_cursor = 6;
+    uint32 page_size = 7;
+}
+
+message GetAllStoreProductsReply {
+    repeated StoreProductInfo store_products = 1;
+    string next_page_cursor = 2;
+    uint32 page_size = 3;
+}
+
+message ProductsCountRequest {
+    string company_id = 1;
+    StoreFilter store_filter = 2;
+    uint32 min_quantity = 3;
+    uint32 max_quantity = 4;
+    bool include_archived = 5;
+}
+
+message ProductsCountReply {
+    int64 count = 1;
+}
+
+message StoreProductsCountRequest {
+    string company_id = 1;
+    StoreFilter store_filter = 2;
+    bool include_archived = 3;
+    bool linked_only = 4;
+    bool unlinked_only = 5;
+}
+
+message StoreProductsCountReply {
+    int64 count = 1;
+}
+
+message StoreProductDetails {
+    string company_id = 1;
+    string store_id = 2;
+    string api2cart_id = 3;
+    string name = 4;
+    string sku = 5;
+    google.protobuf.FloatValue price = 6;
+    string url = 7;
+    repeated string images = 8;
+    string shopify_product_id = 9;
+    google.protobuf.Int64Value inventory_item_id = 10;
+    google.protobuf.FloatValue height = 11;
+    google.protobuf.FloatValue width = 12;
+    google.protobuf.FloatValue length = 13;
+    google.protobuf.FloatValue cost_price = 14;
+    float weight = 15;
+    uint32 quantity = 16;
+    string weight_unit = 17;
+    string dimension_unit = 18;
+}
+
+message IntUpdateStoreProductReply {
+    // empty
+}
+
+message AddImageRequest {
+    string company_id = 1;
+    string product_sku = 2;
+    string url = 3;
+}
+
+message AddImageReply {
+    // empty
+}
+
+message DeleteImageRequest {
+    string company_id = 1;
+    string product_sku = 2;
+    uint64 image_id = 3;
+}
+
+message DeleteImageReply {
+    // empty
+}
+
+message ChangeImagesOrderRequest {
+    string company_id = 1;
+    string product_sku = 2;
+    repeated uint64 image_ids = 3;
+}
+
+message ChangeImagesOrderReply {
+    // empty
+}
+
+message IntGetProductForStoreProductRequest {
+    string company_id = 1;
+    string store_id = 2;
+    string product_sku = 3;
+}
+
+message IntGetProductForStoreProductReply {
+    ProductInfo product = 1;
+}
+
+message UpdateStockRequest {
+    string company_id = 1;
+    string sku = 2;
+    int32 stock_on_hand_adjustment = 3;
+}
+
+message UpdateStockReply {
+    // empty
+}
+
+message IntUpdateStockForShippedRequest {
+    string company_id = 1;
+    uint64 product_id = 2;
+    uint32 quantity = 3;
+}
+
+message IntUpdateStockForShippedReply {
+    // empty
+}
+
+message IntUpdateStockForCancelledRequest {
+    string company_id = 1;
+    uint64 product_id = 2;
+    uint32 quantity = 3;
+}
+
+message IntUpdateStockForCancelledReply {
+    // empty
+}
+
+message IntUpdateAllocatedStockRequest {
+    string company_id = 1;
+    uint64 product_id = 2;
+    uint32 quantity = 3;
+}
+
+message IntUpdateAllocatedStockReply {
+    // empty
+}

@@ -1,0 +1,1 @@
+export { ArrowsSelect } from './ArrowsSelect';

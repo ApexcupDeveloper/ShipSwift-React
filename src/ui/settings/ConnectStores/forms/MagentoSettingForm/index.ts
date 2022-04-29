@@ -1,0 +1,1 @@
+export { MagentoSettingForm } from './MagentoSettingForm';

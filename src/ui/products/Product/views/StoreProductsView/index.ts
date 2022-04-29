@@ -1,0 +1,1 @@
+export { StoreProductsView } from './StoreProductsView';

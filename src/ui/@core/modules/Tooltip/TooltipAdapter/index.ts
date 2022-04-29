@@ -1,0 +1,1 @@
+export { TooltipAdapter } from './TooltipAdapter';

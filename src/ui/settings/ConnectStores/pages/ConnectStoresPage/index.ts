@@ -1,0 +1,1 @@
+export { ConnectStoresPage } from './ConnectStoresPage';

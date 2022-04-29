@@ -1,0 +1,129 @@
+syntax = "proto3";
+option go_package = "github.com/ShipSwift/user-manager;user_manager";
+package usermanager;
+
+service UserManager {
+  // user
+  rpc AddUser(AddUserReq) returns (AddUserReply) {}
+  rpc EditUser(EditUserReq) returns (EditUserReply) {}
+  rpc DeleteUser(DeleteUserReq) returns (DeleteUserReply) {}
+  rpc EnableUser(EnableUserReq) returns (EnableUserReply) {}
+  rpc GetUsers(GetUsersReq) returns (GetUsersReply) {}
+
+  // roles
+  rpc AddRole(CreateRoleReq) returns (CreateRoleReply) {}
+  rpc EditRole(EditRoleReq) returns (EditRoleReply) {}
+  rpc DeleteRole(DeleteRoleReq) returns (DeleteRoleReply) {}
+  rpc GetRoles(GetRolesReq) returns (GetRolesReply) {}
+}
+
+service Internal {
+  //internal
+  rpc IntAddUserStore(IntAddUserStoreReq) returns (IntAddUserStoreReply) {}
+  rpc IntDeleteUserStore(IntDeleteUserStoreReq) returns (IntDeleteUserStoreReply) {}
+}
+
+message AddUserReq {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string password = 4;
+  string company_id = 5;
+  string time_zone = 6;
+  bool is_owner = 7;
+  string role = 8;
+}
+
+message AddUserReply {}
+
+message EditUserReq {
+  string user_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string time_zone = 5;
+  string company_id = 6;
+  string role = 7;
+}
+
+message EditUserReply {}
+
+message DeleteUserReq {
+  string user_id = 1;
+  string company_id = 2;
+}
+
+message DeleteUserReply {}
+
+message EnableUserReq {
+  string user_id = 1;
+  string company_id = 2;
+  bool enabled = 3;
+}
+
+message EnableUserReply {}
+
+message GetUsersReq {
+  string company_id = 1;
+}
+
+message GetUsersReply{
+  repeated User users = 1;
+}
+
+message User {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string time_zone = 4;
+  string email = 5;
+  Role role = 6;
+  bool status = 7;
+}
+
+message Role {
+  string name = 1;
+  string id = 2;
+}
+
+message IntAddUserStoreReq {
+  string company_id = 1;
+  string store_id = 2;
+}
+
+message IntAddUserStoreReply {}
+
+message IntDeleteUserStoreReq {
+  string company_id = 1;
+  string store_id = 2;
+}
+
+message IntDeleteUserStoreReply {}
+
+message GetRolesReq {
+
+}
+
+message GetRolesReply {
+  repeated Role roles = 1;
+}
+
+message EditRoleReq {
+  string id = 1;
+  string name = 2;
+}
+
+message EditRoleReply {}
+
+message CreateRoleReq {
+  string id = 1;
+  string name = 2;
+}
+
+message CreateRoleReply {}
+
+message DeleteRoleReq {
+  string id = 1;
+}
+
+message DeleteRoleReply {}

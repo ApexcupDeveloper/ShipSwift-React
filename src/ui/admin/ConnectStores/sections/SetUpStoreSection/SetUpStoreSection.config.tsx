@@ -1,0 +1,121 @@
+import {
+  AmazonImage,
+  BigCommerceImage,
+  CDiscountImage,
+  EbayImage,
+  EtsyImage,
+  MagentoImage,
+  NOTHSImage,
+  PrestoShopImage,
+  PriceMinisterImage,
+  RakutenImage,
+  ShopifyImage,
+  VendImage,
+  WalmartImage,
+  WooCommerceImage,
+  SquareSpaceImage,
+} from '../../../../../assets/images';
+import { AppRoutes } from '../../../../app/api';
+
+import { StoreCardProps } from '../../components/StoreCard';
+
+export const getStores = (): StoreCardProps[] => [
+  {
+    name: 'Amazon',
+    image: AmazonImage,
+    imageHeight: 14,
+    imageWidth: 50,
+    path: '#',
+  },
+  {
+    name: 'Ebay',
+    image: EbayImage,
+    imageHeight: 18,
+    imageWidth: 45,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.EBay,
+  },
+  {
+    name: 'Shopify',
+    image: ShopifyImage,
+    imageHeight: 18,
+    imageWidth: 63,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.Shopify,
+  },
+  // {
+  //   image: CDiscountImage,
+  //   imageHeight: 10,
+  //   imageWidth: 64,
+  //   path: '#',
+  // },
+  {
+    name: 'BigCommerce',
+    image: BigCommerceImage,
+    imageHeight: 16,
+    imageWidth: 70,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.BigCommerce,
+  },
+  {
+    name: 'Etsy',
+    image: EtsyImage,
+    imageHeight: 14,
+    imageWidth: 30,
+    path: '#',
+  },
+  // {
+  //   image: PriceMinisterImage,
+  //   imageHeight: 8,
+  //   imageWidth: 68,
+  //   path: '#',
+  // },
+  // {
+  //   image: RakutenImage,
+  //   imageHeight: 14,
+  //   imageWidth: 47,
+  //   path: '#',
+  // },
+  // {
+  //   image: VendImage,
+  //   imageHeight: 18,
+  //   imageWidth: 42,
+  //   path: '#',
+  // },
+  // {
+  //   image: NOTHSImage,
+  //   imageHeight: 20,
+  //   imageWidth: 44,
+  //   path: '#',
+  // },
+  {
+    name: 'Magento',
+    image: MagentoImage,
+    imageHeight: 18,
+    imageWidth: 62,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.Magento2,
+  },
+  {
+    name: 'WooCommerce',
+    image: WooCommerceImage,
+    imageHeight: 14,
+    imageWidth: 69,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.WooCommerce,
+  },
+  {
+    name: 'Squarespace',
+    image: SquareSpaceImage,
+    imageHeight: 10,
+    imageWidth: 69,
+    path: AppRoutes.Settings.ConnectStores.SetUpStore.SquareSpace,
+  },
+  // {
+  //   image: PrestoShopImage,
+  //   imageHeight: 12,
+  //   imageWidth: 72,
+  //   path: '#',
+  // },
+  // {
+  //   image: WalmartImage,
+  //   imageHeight: 18,
+  //   imageWidth: 76,
+  //   path: '#',
+  // },
+];

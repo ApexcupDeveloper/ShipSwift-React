@@ -1,0 +1,1 @@
+export { MultiImageDropzone } from './MultiImageDropzone';

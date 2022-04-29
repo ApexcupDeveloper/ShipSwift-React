@@ -1,0 +1,638 @@
+syntax = "proto3";
+option go_package = "github.com/ShipSwift/company-manager;company_manager";
+package companymanager;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service CompanyManager {
+    // company
+    rpc AddCompany(CompanyInfo) returns (AddCompanyReply) {}
+    rpc EditCompany(EditCompanyRequest) returns (EditCompanyReply) {}
+    rpc DeleteCompany(DeleteCompanyRequest) returns (DeleteCompanyReply) {}
+    rpc GetCompany(GetCompanyRequest) returns (GetCompanyReply) {}
+    // warehouse
+    rpc AddWarehouse(AddWarehouseRequest) returns (AddWarehouseReply) {}
+    rpc EditWarehouse(EditWarehouseRequest) returns (EditWarehouseReply) {}
+    rpc DeleteWarehouse(DeleteWarehouseRequest) returns (DeleteWarehouseReply) {}
+    rpc ListWarehouses(ListWarehousesRequest) returns (ListWarehousesReply) {}
+    // store
+    rpc AddStore(AddStoreRequest) returns (AddStoreReply) {}
+    rpc EditStore(EditStoreRequest) returns (EditStoreReply) {}
+    rpc DeleteStore(DeleteStoreRequest) returns (DeleteStoreReply) {}
+    rpc EnableStore(EnableDisableStoreRequest) returns (EnableDisableStoreReply) {}
+    rpc DisableStore(EnableDisableStoreRequest) returns (EnableDisableStoreReply) {}
+    rpc ResetStoreOrdersLastPolled(ResetStoreOrdersLastPolledRequest) returns (ResetStoreOrdersLastPolledReply) {}
+    rpc ResetStoreProductsLastPolled(ResetStoreProductsLastPolledRequest) returns (ResetStoreProductsLastPolledReply) {}
+    rpc GetAllStores(GetAllStoresRequest) returns (GetAllStoresReply) {}
+    rpc StoresCount(StoresCountRequest) returns (StoresCountReply) {}
+    rpc GetStoreType(GetStoreTypeRequest) returns (GetStoreTypeReply) {}
+    rpc GetEtsyAuthToken(EtsyAuthTokenRequest) returns (EtsyAuthTokenReply) {}
+    // billing info
+    rpc GetBillingInfo(BillingInfoRequest) returns (BillingInfoReply) {}
+    rpc SetDefaultCard(SetDefaultCardRequest) returns (SetDefaultCardReply) {}
+    rpc UpdateBillingAddress(UpdateCompanyBillingAddressRequest) returns (UpdateCompanyBillingAddressReply) {}
+    rpc GetBillingInvoices(BillingInvoiceReq) returns (BillingInvoiceReply) {}
+    rpc DeleteCard(DeleteCardRequest) returns (DeleteCardReply) {}
+}
+
+service Internal {
+    // store
+    rpc IntGetStoresToPollForOrders(IntGetStoresToPollForOrdersRequest) returns (IntGetStoresToPollForOrdersReply) {}
+    rpc IntGetStoresToPollForProducts(IntGetStoresToPollForProductsRequest) returns (IntGetStoresToPollForProductsReply) {}
+    rpc IntGetStoreKey(GetStoreKeyRequest) returns (GetStoreKeyReply) {}
+    rpc IntGetStoreType(GetStoreTypeRequest) returns (GetStoreTypeReply) {}
+    rpc IntSetShopifyAccessToken(SetShopifyAccessTokenRequest) returns (SetShopifyAccessTokenReply) {}
+    rpc IntAllStoreList(IntAllStoreListReq) returns (IntAllStoreListReply) {}
+    rpc IntGetStoreInfoBulk(IntGetStoreInfoBulkReq) returns (IntGetStoreInfoBulkReply) {}
+    // subscription
+    rpc IntUpdateSubscription(SubscriptionUpdateRequest) returns (SubscriptionUpdateReply) {}
+    rpc IntAddSubscription(SubscriptionAddRequest) returns (SubscriptionAddReply) {}
+    rpc IntDeleteSubscription(SubscriptionDeleteRequest) returns (SubscriptionDeleteReply) {}
+    // card
+    rpc IntAddCard(AddCardRequest) returns (AddCardReply) {}
+    rpc IntUpdateCard(UpdateCardRequest) returns (UpdateCardReply) {}
+    rpc IntDeleteCard(IntDeleteCardRequest) returns (IntDeleteCardReply) {}
+    // billing address
+    rpc IntUpdateBillingAddress(UpdateBillingAddressRequest) returns (UpdateBillingAddressReply) {}
+    // invoice
+    rpc IntAddInvoice(IntCreateInvoiceRequest) returns (IntCreateInvoiceReply) {}
+    rpc IntUpdateInvoice(IntUpdateInvoiceRequest) returns (IntUpdateInvoiceReply) {}
+    // user
+    rpc IntUpdateCompanyUserCount(IntUpdateCompanyUserCountReq) returns (IntUpdateCompanyUserCountReply) {}
+    // order count
+    rpc IntUpdateCompanyOrderCount(IntUpdateCompanyOrderCountReq) returns (IntUpdateCompanyOrderCountReply) {}
+}
+
+message CompanyInfo {
+    string name = 1;
+    string email = 2;
+    string logo_url = 3;
+    string vat_number = 4;
+    string eori_number = 5;
+    string default_currency = 6;
+    string purchase_order_prefix = 7;
+    string weight_unit = 8;
+    string dimension_unit = 9;
+    string invoice_note = 10;
+    string phone = 11;
+    string address1 = 12;
+    string address2 = 13;
+    string address3 = 14;
+    string country = 15;
+    string region = 16;
+    string city = 17;
+    string postcode = 18;
+    string id = 19;
+    string barcode_format = 20;
+    google.protobuf.StringValue ioss = 21;
+    uint32 user_count = 22;
+    uint32 imported_order_count = 23;
+}
+
+message AddCompanyReply {
+    // company_id is the automatically generated ID we use to identify the company
+    string company_id = 1;
+}
+
+message EditCompanyRequest {
+    string company_id = 1;
+    CompanyInfo company_info = 2;
+}
+
+message EditCompanyReply {
+    // empty
+}
+
+message DeleteCompanyRequest {
+    string company_id = 1;
+}
+
+message DeleteCompanyReply {
+    // empty
+}
+
+message GetCompanyRequest {
+    string company_id = 1;
+}
+
+message GetCompanyReply {
+    CompanyInfo company_info = 1;
+}
+
+message AddWarehouseRequest {
+    string company_id = 1;
+    CompanyInfo warehouse_info = 2;
+}
+
+message AddWarehouseReply {
+    // empty
+}
+
+message EditWarehouseRequest {
+    string company_id = 1;
+    string warehouse_id = 2;
+    CompanyInfo warehouse_info = 3;
+}
+
+message EditWarehouseReply {
+    // empty
+}
+
+message DeleteWarehouseRequest {
+    string company_id = 1;
+    string warehouse_id = 2;
+}
+
+message DeleteWarehouseReply {
+    // empty
+}
+
+message ListWarehousesRequest {
+    string company_id = 1;
+}
+
+message ListWarehousesReply {
+    repeated CompanyInfo warehouses = 1;
+}
+
+message AddStoreRequest {
+    // name is the name of the store to create in ShipSwift
+    string name = 1;
+    // type is the type of store, woocommerce,ebay and so on
+    string type = 2;
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 3;
+    // store_url is the link to the store
+    string store_url = 4;
+    // parameters are the store parameter for API2Cart
+    StoreParams parameters = 5;
+    // a two-characters short name used in the UI
+    string short_name = 6;
+    // the ARGB string representation of a colour prefixed with a # i.e. #FFAABBCC
+    string icon_colour = 7;
+    // what delivery method to use by default
+    string default_delivery_method = 8;
+    bool import_all_orders = 9;
+    // store_currency represents the currency of the store
+    string store_currency = 10;
+    // store_email represents the email of the store
+    string store_email = 11;
+    bool import_all_products = 12;
+    google.protobuf.BoolValue should_skip_iu = 13;
+}
+
+message StoreParams {
+    // general
+    string bridge_url = 1;
+    string store_root = 2;
+    string validate_version = 3;
+    // api2cart_store_key is the new Store Key to use to interacti with API2Cart
+    string store_key = 4;
+    // amazon
+    string amazon_seller_id = 5;
+    string amazon_sp_client_id = 6;
+    string amazon_sp_client_secret = 7;
+    string amazon_sp_aws_user_key_id = 8;
+    string amazon_sp_aws_user_secret = 9;
+    string amazon_sp_aws_region = 10;
+    string amazon_sp_aws_role_arn = 11;
+    string amazon_sp_refresh_token = 12;
+    string amazon_sp_api_environment = 13;
+    // ebay
+    string ebay_client_id = 14;
+    string ebay_client_secret = 15;
+    string ebay_refresh_token = 16;
+    string ebay_environment = 17;
+    string ebay_site_id = 18;
+    // squarespace
+    string squarespace_api_key = 19;
+    // bigcommerce
+    string bigcommerceapi_client_id = 20;
+    string bigcommerceapi_access_token = 21;
+    string bigcommerceapi_context = 22;
+    // etsy
+    string etsy_keystring = 23;
+    string etsy_shared_secret = 24;
+    string etsy_access_token = 25;
+    string etsy_token_secret = 26;
+    // needed for etsy auth verifier
+    string etsy_app_access_token = 27;
+    string etsy_app_token_secret = 28;
+    string etsy_verifier = 29;
+}
+
+message AddStoreReply {
+    // store_id is the ShipSwift Store ID to enable
+    string store_id = 1;
+}
+
+message EditStoreRequest {
+    // store_id is the ShipSwift Store ID to enable
+    string store_id = 1;
+    // name is the name for the store is ShipSwift
+    string name = 2;
+    // type is the type of store, woocommerce,ebay and so on
+    string type = 3;
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 4;
+    // parameters are the store parameter for API2Cart
+    StoreParams parameters = 5;
+    // a two-characters short name used in the UI
+    string short_name = 6;
+    // the ARGB string representation of a colour prefixed with a # i.e. #FFAABBCC
+    string icon_colour = 7;
+    // store_currency represents the currency of the store
+    string store_currency = 8;
+    // store_email represents the email of the store
+    string store_email = 9;
+    google.protobuf.BoolValue should_skip_iu = 10;
+}
+
+message EditStoreReply {
+    // empty
+}
+
+message DeleteStoreRequest {
+    // store_id is the ShipSwift Store ID to enable
+    string store_id = 1;
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 2;
+}
+
+message DeleteStoreReply {
+    // empty
+}
+
+message EnableDisableStoreRequest {
+    // store_id is the ShipSwift Store ID to enable
+    string store_id = 1;
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 2;
+}
+
+message EnableDisableStoreReply {
+    // empty
+}
+
+message IntGetStoresToPollForOrdersRequest {
+    // not_updated_in_seconds defines how long a store should not have been polled for to return it
+    uint64 not_updated_in_seconds = 1;
+    // batch_size represents how many stores we want to return at once
+    uint64 batch_size = 2;
+}
+
+message IntGetStoresToPollForOrdersReply {
+    // stores is a list of stores
+    repeated StoreInfo stores = 1;
+}
+
+message IntGetStoresToPollForProductsRequest {
+    // not_updated_in_seconds defines how long a store should not have been polled for to return it
+    uint64 not_updated_in_seconds = 1;
+    // batch_size represents how many stores we want to return at once
+    uint64 batch_size = 2;
+}
+
+message IntGetStoresToPollForProductsReply {
+    // stores is a list of stores
+    repeated StoreInfo stores = 1;
+}
+
+message StoreInfo {
+    // id is the Store ID as stored in ShipSwift
+    string id = 1;
+    // name is the name of the store in ShipSwift
+    string name = 2;
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 3;
+    // api2cart_store_key is the key used with the API2Cart API
+    string api2cart_store_key = 4;
+    // type is the type of store, woocommerce,ebay and so on
+    string type = 5;
+    // enabled is true if the store is enabled
+    bool enabled = 6;
+    // short_name is the two characters short version of the name
+    string short_name = 7;
+    // icon_colour used to change the store icon colour
+    string icon_colour = 8;
+    // store_url representing the URL for the store
+    string store_url = 9;
+    // default_delivery_method the default delivery method to use for the store
+    string default_delivery_method = 10;
+    // import_all_orders set to true if we need to import all the orders for this store
+    bool import_all_orders = 11;
+    // store_currency represents the currency of the store
+    string store_currency = 12;
+    // store_email represents the email of the store
+    string store_email = 13;
+    // shopify_access_token access token for shopify
+    string shopify_access_token = 14;
+    // import_all_products set to true if we need to import all the products for this store
+    bool import_all_products = 15;
+    google.protobuf.Timestamp created_at = 16;
+    bool should_skip_iu = 17;
+}
+
+message GetAllStoresRequest {
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 1;
+    // batch_size is how many stores to retrieve
+    int64 batch_size = 2;
+    // page is the page number when doing pagination
+    int64 page = 3;
+}
+
+message GetAllStoresReply {
+    repeated StoreInfo stores = 1;
+}
+
+message StoresCountRequest {
+    // company_id is the ShipSwift User ID owning the store
+    string company_id = 1;
+}
+
+message StoresCountReply {
+    // count represents the number of stores for a user
+    int64 count = 1;
+}
+
+message GetStoreKeyRequest {
+    // store_id is the ShipSwift Store ID to enable
+    string store_id = 1;
+}
+
+message GetStoreKeyReply {
+    // api2cart_store_key is the API2Cart store key for the store
+    string api2cart_store_key = 1;
+    ShopifyCredentials shopify_credentials = 2;
+}
+
+message ShopifyCredentials {
+    string store_url = 1;
+    string access_token = 2;
+}
+
+message SetShopifyAccessTokenRequest {
+    string store_url = 1;
+    string shopify_access_token = 2;
+}
+
+message SetShopifyAccessTokenReply {
+    // empty
+}
+
+message GetStoreTypeRequest {
+    string company_id = 1;
+    string store_id = 2;
+}
+
+message GetStoreTypeReply {
+    string type = 1;
+}
+
+message ResetStoreOrdersLastPolledRequest {
+    string company_id = 1;
+    string store_id = 2;
+}
+
+message ResetStoreOrdersLastPolledReply {
+    // empty
+}
+
+message ResetStoreProductsLastPolledRequest {
+    string company_id = 1;
+    string store_id = 2;
+}
+
+message ResetStoreProductsLastPolledReply {
+    // empty
+}
+
+message EtsyAuthTokenRequest {
+    // empty
+}
+
+message EtsyAuthTokenReply {
+    string login_url = 1;
+}
+
+message BillingInfoRequest {
+    string company_id = 1;
+}
+
+message BillingInfoReply {
+    string name = 1;
+    string stripe_id = 2;
+    BillingAddress billing_address = 3;
+    repeated Card cards = 4;
+    CurrentSubscription current_subscription = 5;
+}
+
+message BillingAddress {
+    string line1 = 1;
+    string line2 = 2;
+    string postal_code = 3;
+    string state = 4;
+    string city = 5;
+    string country = 6;
+}
+
+message CurrentSubscription {
+    string status = 1;
+    float amount = 2;
+    google.protobuf.Timestamp created = 3;
+    string interval = 5;
+    string currency = 6;
+    repeated Product products = 7;
+}
+
+message Product {
+    string product_id = 1;
+    string name = 2;
+    int64 quantity = 3;
+}
+
+message Card {
+    string stripe_id = 1;
+    string brand = 2;
+    string last_4_digit = 3;
+    string expiry_month = 4;
+    uint32 expiry_year = 5;
+    bool is_default = 6;
+}
+
+message SubscriptionUpdateRequest {
+    string customer_id = 1;
+    string subscription_id = 2;
+    float amount = 3;
+    string status = 4;
+    string interval = 6;
+    string currency = 7;
+    bytes products = 8;
+}
+
+message SubscriptionUpdateReply {}
+
+message SubscriptionAddRequest {
+    string customer_id = 1;
+    string subscription_id = 2;
+    float amount = 3;
+    string status = 4;
+    google.protobuf.Timestamp created = 5;
+    string interval = 7;
+    string currency = 8;
+    string invoice_id = 9;
+    bytes products = 10;
+}
+
+message SubscriptionAddReply {}
+
+message SubscriptionDeleteRequest {
+    string subscription_id = 1;
+}
+
+message SubscriptionDeleteReply {}
+
+message UpdateBillingAddressRequest {
+    // stripe customer id
+    string customer_id = 1;
+    string line1 = 2;
+    string line2 = 3;
+    string postal_code = 4;
+    string state = 5;
+    string city = 6;
+    string country = 7;
+}
+
+message UpdateBillingAddressReply {}
+
+
+message AddCardRequest {
+    string customer_id = 1;
+    string stripe_id = 2;
+    string brand = 3;
+    string last_4_digit = 4;
+    uint32 expiry_month = 5;
+    uint32 expiry_year = 6;
+}
+
+message AddCardReply {}
+
+message UpdateCardRequest {
+    // stripe customer id
+    string customer_id = 1;
+    string stripe_id = 2;
+    string brand = 3;
+    string last_4_digit = 4;
+    uint32 expiry_month = 5;
+    uint32 expiry_year = 6;
+}
+
+message UpdateCardReply {}
+
+message IntDeleteCardRequest {
+    string stripe_card_id = 1;
+}
+
+message IntDeleteCardReply {}
+
+message UpdateCompanyBillingAddressRequest {
+    string company_id = 1;
+    string line1 = 2;
+    string line2 = 3;
+    string postal_code = 4;
+    string state = 5;
+    string city = 6;
+    string country = 7;
+}
+
+message UpdateCompanyBillingAddressReply {}
+
+message SetDefaultCardRequest {
+    string company_id = 1;
+    string card_id = 2;
+}
+
+message SetDefaultCardReply {}
+
+message IntCreateInvoiceRequest {
+    string stripe_customer_id = 1;
+    string invoice_stripe_id = 2;
+    string status = 3;
+    google.protobuf.Timestamp created = 4;
+}
+
+message IntCreateInvoiceReply {}
+
+message IntUpdateInvoiceRequest {
+    string invoice_stripe_id = 1;
+    string invoice_number = 2;
+    float total = 3;
+    string status = 4;
+    string pdf_url = 5;
+    string payment_type = 6;
+    string customer_id = 7;
+    string subscription_id = 8;
+}
+
+message IntUpdateInvoiceReply {}
+
+message BillingInvoiceReq {
+    string company_id = 1;
+}
+
+message BillingInvoiceReply {
+    repeated Invoice invoices = 1;
+}
+
+message Invoice {
+    string invoice_number = 1;
+    float total = 2;
+    string status = 3;
+    string pdf_url = 4;
+    google.protobuf.Timestamp created = 5;
+    string payment_type = 6;
+}
+
+message DeleteCardRequest {
+    string company_id = 1;
+    string card_id = 2;
+}
+
+message DeleteCardReply {}
+
+message IntAllStoreListReq {
+    string company_id = 1;
+}
+
+message IntAllStoreListReply {
+    repeated string stores = 1;
+}
+
+message IntUpdateCompanyUserCountReq {
+    string company_id = 1;
+    bool add = 2;
+}
+
+message IntUpdateCompanyUserCountReply {}
+
+message IntUpdateCompanyOrderCountReq {
+    string store_id = 1;
+    uint32 order_count = 2;
+}
+
+message IntUpdateCompanyOrderCountReply {}
+
+message IntGetStoreInfoBulkReq {
+    repeated string store_ids = 1;
+}
+
+message IntGetStoreInfoBulkReply {
+    repeated StoreInfo stores = 1;
+    repeated ShopifyWareHouse locations = 2;
+}
+
+message ShopifyWareHouse {
+    string company_id = 1;
+    int64 shopify_location_id = 2;
+}
